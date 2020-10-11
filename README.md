@@ -1,4 +1,4 @@
 # OOM Mini project
 
 ## Contributors:-
-1) Tushar Gupta
+1) https://github.com/Tushargupta9800
