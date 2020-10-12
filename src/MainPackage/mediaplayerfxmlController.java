@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -27,6 +29,7 @@ public class mediaplayerfxmlController implements Initializable {
 	@FXML private MediaView mediaview;
 	@FXML private Button openmedia;
 	@FXML private Button PlayPause;
+	@FXML private ImageView pppng;
 	private boolean isPlay=true;
 	@FXML private Slider volumeSlider;
 	@FXML private Slider progressBar;
@@ -37,6 +40,9 @@ public class mediaplayerfxmlController implements Initializable {
 	@FXML private HBox HBOX;
 	private float speed = 1;
 	
+	
+	Image playI=new Image("/assets/play.png");
+	Image pauseI=new Image("/assets/pause.png");
 	private MediaPlayer mediaplayer;
 	String path;
 	private boolean isplaying = false; 
@@ -117,12 +123,12 @@ public class mediaplayerfxmlController implements Initializable {
 	@FXML public void play_pause() {
 		if (isPlay==true) {
             	mediaplayer.pause();
-            	PlayPause.setText("Pause");
+            	pppng.setImage(pauseI);
             	isPlay=false;
         	}	 
 		else {
             	mediaplayer.play();
-            	PlayPause.setText("Play");
+            	pppng.setImage(playI);
             	isPlay=true;
         	}
 	}
