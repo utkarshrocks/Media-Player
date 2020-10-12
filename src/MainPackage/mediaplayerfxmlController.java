@@ -27,6 +27,7 @@ public class mediaplayerfxmlController implements Initializable {
 	@FXML private MediaView mediaview;
 	@FXML private Button openmedia;
 	@FXML private Button PlayPause;
+	private boolean isPlay=true;
 	@FXML private Slider volumeSlider;
 	@FXML private Slider progressBar;
 	@FXML private Button Volume;
@@ -114,19 +115,16 @@ public class mediaplayerfxmlController implements Initializable {
 	}
 	
 	@FXML public void play_pause() {
-		if(play) mediaplayer.pause();
-		else mediaplayer.play();
-		play = !play;
-		
-		//
-		//
-		//	change the text of play pause
-		//	Button name:- PlayPause
-		//	play is the boolean which is true
-		//	when video is playing else it is false
-		//
-		//
-		//
+		if (isPlay==true) {
+            	mediaplayer.pause();
+            	PlayPause.setText("Pause");
+            	isPlay=false;
+        	}	 
+		else {
+            	mediaplayer.play();
+            	PlayPause.setText("Play");
+            	isPlay=true;
+        	}
 	}
 	
 	@FXML public void visibleslider() {
