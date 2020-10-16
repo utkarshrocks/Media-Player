@@ -58,10 +58,12 @@ public class mediaplayerfxmlController implements Initializable {
 	
 	@FXML public void openmedia() {
 		
-		
-		FileChooser fileChooser = new FileChooser();
-	      File file = fileChooser.showOpenDialog(null);
-	      path = file.toURI().toString();
+	    FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Select mp4 or mp4....", "*.mp3", "*.mp4");
+            fileChooser.getExtensionFilters().add(extensionFilter);
+            File file = fileChooser.showOpenDialog(null);
+            path = file.toURI().toString();
+
 	      
 	      try{
 	    	  if(isplaying) mediaplayer.stop();
