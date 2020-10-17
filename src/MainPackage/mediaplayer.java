@@ -9,6 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class mediaplayer extends Application {
+	
+	private boolean isFullscreen = false;
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -21,7 +23,11 @@ public class mediaplayer extends Application {
 	            @Override
 	            public void handle(MouseEvent event) {
 	                if(event.getClickCount() == 2){
-	                    stage.setFullScreen(true);
+	                    if(!isFullscreen)
+	                    	stage.setFullScreen(true);
+	                    else
+	                    	stage.setFullScreen(false);
+	                    isFullscreen = !isFullscreen;
 	                }
 	            }
 	        });
