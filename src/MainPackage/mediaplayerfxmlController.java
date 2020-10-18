@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -31,14 +32,17 @@ public class mediaplayerfxmlController implements Initializable {
 	@FXML private Button PlayPause;
 	@FXML private ImageView pppng;
 	@FXML private ImageView VImg;
+	@FXML private ImageView speed_img;
 	@FXML private Text Elapse_time;
 	@FXML private Text Total_time;
 	@FXML private Text music_name;
+	@FXML private Text show_speed;
 	@FXML private Slider volumeSlider;
 	@FXML private Slider progressBar;
 	@FXML private Button Volume;
 	@FXML private Button slowmo;
 	@FXML private Button fastmo;
+	@FXML private StackPane  speed_stack;
 	@FXML private Button properties;
 	@FXML private HBox HBOX;
 	
@@ -195,8 +199,11 @@ public class mediaplayerfxmlController implements Initializable {
                 	}
                 }
 			}});
+		speed_stack.setVisible(false);
+		show_speed.setVisible(false);
 		slowmo.setVisible(false);
 		fastmo.setVisible(false);
+		speed_img.setVisible(false);
 		HBOX.setVisible(false);
 		speed_visible = false;
 		
@@ -211,11 +218,17 @@ public class mediaplayerfxmlController implements Initializable {
 				MouseButton button = event.getButton();
                 if(button==MouseButton.PRIMARY){
                 	if(speed_visible) {
+                		speed_img.setVisible(false);
+                		speed_stack.setVisible(false);
+                		show_speed.setVisible(false);
             			HBOX.setVisible(false);
             			slowmo.setVisible(false);
             			fastmo.setVisible(false);
             		}
             		else {
+            			speed_img.setVisible(true);
+            			speed_stack.setVisible(true);
+            			show_speed.setVisible(true);
             			HBOX.setVisible(true);
             			slowmo.setVisible(true);
             			fastmo.setVisible(true);
@@ -233,12 +246,14 @@ public class mediaplayerfxmlController implements Initializable {
 	@FXML public void slowAction(){
 		speed -= 0.1;
     	if(speed < 0.1) speed = (float) 0.1;
+    	show_speed.setText(Float.toString(speed).substring(0,3));
         mediaplayer.setRate(speed);
 	}
 	
 	@FXML public void fastAction() {
 		speed += 0.1;
     	if(speed > 4) speed = 4;
+    	show_speed.setText(Float.toString(speed).substring(0, 3));
         mediaplayer.setRate(speed);
 	}
 	
