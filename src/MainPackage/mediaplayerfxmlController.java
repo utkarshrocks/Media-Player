@@ -51,6 +51,8 @@ public class mediaplayerfxmlController implements Initializable {
 	Image pauseI=new Image("/assets/pause.png");
 	Image V_on = new Image("/assets/volume.png");
 	Image V_off = new Image("/assets/mute.png");
+	javafx.util.Duration runTime;
+	javafx.util.Duration fullTime;
 	private MediaPlayer mediaplayer;
 	private MediaPlayer BK_mediaplayer;
 	String path;
@@ -110,12 +112,16 @@ public class mediaplayerfxmlController implements Initializable {
 	                @Override
 	                public void changed(ObservableValue<? extends javafx.util.Duration> observable, javafx.util.Duration oldValue, javafx.util.Duration newValue) {
 	                    progressBar.setValue(newValue.toSeconds());
+	                    runTime = newValue;
 	                    int hr = (int) newValue.toHours();
 	                    int min = (int) newValue.toMinutes()%(60*60);
 	                    int sec = (int) newValue.toSeconds()%60;
 	                    String time = min + ":" + sec;
 	                    if(hr != 0) time = hr + ":" + time;
 	                    Elapse_time.setText(time);
+	                    if(runTime.toSeconds() >= fullTime.toSeconds() && extension.equals("mp3")) {
+	                    	BK_mediaplayer.stop();
+	                    }
 	                }
 	            });
 	            
@@ -123,6 +129,7 @@ public class mediaplayerfxmlController implements Initializable {
 	                @Override
 	                public void run() {
 	                    javafx.util.Duration total = media.getDuration();
+	                    fullTime = total;
 	                    progressBar.setMax(total.toSeconds());
 	                    int hr = (int) total.toHours();
 	                    int min = (int) total.toMinutes()%(60*60);
