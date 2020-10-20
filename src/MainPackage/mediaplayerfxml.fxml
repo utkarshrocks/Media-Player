@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPackage.mediaplayerfxmlController">
@@ -117,6 +118,26 @@
                   <Insets left="10.0" top="5.0" />
                </StackPane.margin>
             </Text>
+            <StackPane fx:id="speed_stack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="49.0" visible="false" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="10.0" top="40.0" />
+               </StackPane.margin>
+               <children>
+                  <Text fx:id="show_speed" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" StackPane.alignment="TOP_LEFT">
+                     <StackPane.margin>
+                        <Insets left="10.0" top="8.0" />
+                     </StackPane.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="speed_img" fitHeight="36.0" fitWidth="59.0" opacity="0.55" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="TOP_LEFT">
+                     <image>
+                        <Image url="@../assets/black.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
          </children>
       </StackPane>
    </center>
