@@ -82,7 +82,8 @@ public class mediaplayerfxmlController implements Initializable {
 	      extension = extention[extention.length - 1]; 
 	      try{
 	    	  music_name.setText("");
-	    	  if(isplaying) mediaplayer.stop();
+	    	  if(isplaying) { mediaplayer.stop();
+	    	  mediaplayer.dispose();}
 	    	  isplaying = true;
 	    	  if(extension.equals("mp3")) {
 	    		  music_name.setText(file.getName());
@@ -242,7 +243,7 @@ public class mediaplayerfxmlController implements Initializable {
             		}
             		speed_visible = !speed_visible;
                 }else if(button==MouseButton.SECONDARY){
-               
+                	
                 }
 			}});
 		
