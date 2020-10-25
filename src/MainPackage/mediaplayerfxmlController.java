@@ -1,102 +1,67 @@
 package MainPackage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
+import javafx.scene.layout.*;
 import javafx.scene.media.*;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.stage.*;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.value.*;
 import javafx.event.EventHandler;
 import javafx.fxml.*;
 
 public class mediaplayerfxmlController implements Initializable {
 	
-	@FXML private MediaView mediaview;
-	@FXML private MediaView background;
-	@FXML private Button openmedia;
-	@FXML private Button PlayPause;
-	@FXML private ImageView pppng;
-	@FXML private ImageView VImg;
-	@FXML private ImageView speed_img;
-	@FXML private ImageView backimgTAG;
-	@FXML private Text Elapse_time;
-	@FXML private Text Total_time;
-	@FXML private Text music_name;
-	@FXML private Text show_speed;
-	@FXML private Text nameTAG;
-	@FXML private Text locationTAG;
-	@FXML private Text lengthTAG;
-	@FXML private Text filetypeTAG;
-	@FXML private Text sizeTAG;
-	@FXML private Slider volumeSlider;
-	@FXML private Slider progressBar;
-	@FXML private Button Volume;
-	@FXML private Button slowmo;
-	@FXML private Button fastmo;
-	@FXML private StackPane  speed_stack;
-	@FXML private StackPane  stackTAG;
-	@FXML private Button properties;
+	@FXML private MediaView mediaview,background;
+	@FXML private Button openmedia,PlayPause,Volume,slowmo,fastmo,properties;
+	@FXML private ImageView pppng,VImg,speed_img;
+	@FXML private Text Elapse_time,Total_time,music_name,show_speed;
+	@FXML private Slider volumeSlider,progressBar;
+	@FXML private StackPane  speed_stack,stackTAG;
 	@FXML private HBox HBOX;
-	@FXML private VBox vboxTAG;
-	
-	
 	
 	Image playI=new Image("/assets/play.png");
 	Image pauseI=new Image("/assets/pause.png");
 	Image V_on = new Image("/assets/volume.png");
 	Image V_off = new Image("/assets/mute.png");
 	Information media_information = new Information();
-	javafx.util.Duration runTime;
-	javafx.util.Duration fullTime;
-	private MediaPlayer mediaplayer;
-	private MediaPlayer BK_mediaplayer;
-	String path;
+	FR_button_visibility FR_button = new FR_button_visibility();
+	javafx.util.Duration runTime,fullTime;
+	private MediaPlayer mediaplayer,BK_mediaplayer;
+	String path,extension;
 	Media media;
-	String extension;
 	private float speed = 1;
-	private boolean isSongPlaying = false;
-	private boolean isPlay=true;
-	private boolean isplaying = false; 
-	private boolean play = true;
-	private boolean slider_visible = false;
-	private boolean speed_visible = false;
-	private boolean isINFO = false;
+	private boolean 
+			isSongPlaying = false,
+			isPlay=true,
+			isplaying = false,
+			slider_visible = false,
+			speed_visible = false;
 	Text text = new Text();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		FR_button.get_the_buttons(speed_stack, show_speed, slowmo, fastmo, HBOX, speed_img);
 	}
 	
 	@FXML public void openmedia() {
 		
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Select mp4 or mp4....", "*.mp3", "*.mp4");
-	     fileChooser.getExtensionFilters().add(extensionFilter);
-	      File file = fileChooser.showOpenDialog(null);
-	      path = file.toURI().toString();
+	    fileChooser.getExtensionFilters().add(extensionFilter);
+	    File file = fileChooser.showOpenDialog(null);
+	    path = file.toURI().toString();
 	      if(isSongPlaying) {
 	    	  BK_mediaplayer.dispose();
 	    	  isSongPlaying = false;
@@ -127,7 +92,7 @@ public class mediaplayerfxmlController implements Initializable {
 		    	  mediaview.setMediaPlayer(mediaplayer);
 		    	  mediaplayer.play();
 		    	  mediaplayer.setRate(speed);
-	    	  DoubleProperty widthProp = mediaview.fitWidthProperty();
+	    	    DoubleProperty widthProp = mediaview.fitWidthProperty();
 	            DoubleProperty heightProp = mediaview.fitHeightProperty();
 	            
 	            widthProp.bind(Bindings.selectDouble(mediaview.sceneProperty(), "width"));
@@ -138,11 +103,7 @@ public class mediaplayerfxmlController implements Initializable {
 	                public void changed(ObservableValue<? extends javafx.util.Duration> observable, javafx.util.Duration oldValue, javafx.util.Duration newValue) {
 	                    progressBar.setValue(newValue.toSeconds());
 	                    runTime = newValue;
-	                    int hr = (int) newValue.toHours();
-	                    int min = (int) newValue.toMinutes()%(60*60);
-	                    int sec = (int) newValue.toSeconds()%60;
-	                    String time = min + ":" + sec;
-	                    if(hr != 0) time = hr + ":" + time;
+	                    String time = media_information.get_string_time(newValue);
 	                    Elapse_time.setText(time);
 	                    if(runTime.toSeconds() >= fullTime.toSeconds() && extension.equals("mp3")) {
 	                    	BK_mediaplayer.stop();
@@ -156,18 +117,13 @@ public class mediaplayerfxmlController implements Initializable {
 	                    javafx.util.Duration total = media.getDuration();
 	                    fullTime = total;
 	                    progressBar.setMax(total.toSeconds());
-	                    int hr = (int) total.toHours();
-	                    int min = (int) total.toMinutes()%(60*60);
-	                    int sec = (int) total.toSeconds()%60;
-	                    String time = min + ":" + sec;
-	                    if(hr != 0) time = hr + ":" + time;
+	                    String time = media_information.get_string_time(total);
 	                    media_information.Get_Information(
 	                    		file.getName(),
 	                    		file.getPath(),
 	                    		time,
 	                    		extension,
-	                    		file.length()/1000000 + "." + (file.length()/1000 - (file.length()/1000000)*1000)
-	                    		);
+	                    		file.length()/1000000 + "." + (file.length()/1000 - (file.length()/1000000)*1000));
 	                    Total_time.setText(time);
 	                }
 	            });
@@ -238,14 +194,8 @@ public class mediaplayerfxmlController implements Initializable {
                 	}
                 }
 			}});
-		speed_stack.setVisible(false);
-		show_speed.setVisible(false);
-		slowmo.setVisible(false);
-		fastmo.setVisible(false);
-		speed_img.setVisible(false);
-		HBOX.setVisible(false);
+		FR_button.setVisibility(false);
 		speed_visible = false;
-		
 	}
 	
 	@FXML public void properties()  throws IOException{
@@ -256,23 +206,9 @@ public class mediaplayerfxmlController implements Initializable {
 			public void handle(MouseEvent event) {
 				MouseButton button = event.getButton();
                 if(button==MouseButton.PRIMARY){
-                	if(speed_visible) {
-                		speed_img.setVisible(false);
-                		speed_stack.setVisible(false);
-                		show_speed.setVisible(false);
-            			HBOX.setVisible(false);
-            			slowmo.setVisible(false);
-            			fastmo.setVisible(false);
-            		}
-            		else {
-            			speed_img.setVisible(true);
-            			speed_stack.setVisible(true);
-            			show_speed.setVisible(true);
-            			HBOX.setVisible(true);
-            			slowmo.setVisible(true);
-            			fastmo.setVisible(true);
-            		}
-            		speed_visible = !speed_visible;
+                	if(speed_visible) {FR_button.setVisibility(false);}
+            		else {FR_button.setVisibility(true);}
+                	speed_visible = !speed_visible;
                 }else if(button==MouseButton.SECONDARY){
                 	FXMLLoader ldr = new FXMLLoader();
                 	ldr.setLocation(getClass().getResource("MediaInfo.fxml"));
@@ -280,7 +216,6 @@ public class mediaplayerfxmlController implements Initializable {
 					try {
 						Media_Info = ldr.load();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						System.out.println(e.toString());
 					}
                 	
