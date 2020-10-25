@@ -31,7 +31,7 @@
                               <Insets left="2.0" />
                            </HBox.margin>
                         </Text>
-                        <Slider fx:id="progressBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="16.0" prefWidth="2000.0" />
+                        <Slider fx:id="progressBar" prefHeight="16.0" prefWidth="2000.0" />
                         <Text fx:id="Total_time" fill="#eee8e8" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" />
                      </children>
                   </HBox>
