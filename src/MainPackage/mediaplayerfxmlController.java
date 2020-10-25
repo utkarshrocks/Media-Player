@@ -1,8 +1,13 @@
 package MainPackage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -12,9 +17,11 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -33,24 +40,34 @@ public class mediaplayerfxmlController implements Initializable {
 	@FXML private ImageView pppng;
 	@FXML private ImageView VImg;
 	@FXML private ImageView speed_img;
+	@FXML private ImageView backimgTAG;
 	@FXML private Text Elapse_time;
 	@FXML private Text Total_time;
 	@FXML private Text music_name;
 	@FXML private Text show_speed;
+	@FXML private Text nameTAG;
+	@FXML private Text locationTAG;
+	@FXML private Text lengthTAG;
+	@FXML private Text filetypeTAG;
+	@FXML private Text sizeTAG;
 	@FXML private Slider volumeSlider;
 	@FXML private Slider progressBar;
 	@FXML private Button Volume;
 	@FXML private Button slowmo;
 	@FXML private Button fastmo;
 	@FXML private StackPane  speed_stack;
+	@FXML private StackPane  stackTAG;
 	@FXML private Button properties;
 	@FXML private HBox HBOX;
+	@FXML private VBox vboxTAG;
+	
 	
 	
 	Image playI=new Image("/assets/play.png");
 	Image pauseI=new Image("/assets/pause.png");
 	Image V_on = new Image("/assets/volume.png");
 	Image V_off = new Image("/assets/mute.png");
+	Information media_information = new Information();
 	javafx.util.Duration runTime;
 	javafx.util.Duration fullTime;
 	private MediaPlayer mediaplayer;
@@ -59,11 +76,13 @@ public class mediaplayerfxmlController implements Initializable {
 	Media media;
 	String extension;
 	private float speed = 1;
+	private boolean isSongPlaying = false;
 	private boolean isPlay=true;
 	private boolean isplaying = false; 
 	private boolean play = true;
 	private boolean slider_visible = false;
 	private boolean speed_visible = false;
+	private boolean isINFO = false;
 	Text text = new Text();
 	
 	@Override
@@ -78,6 +97,10 @@ public class mediaplayerfxmlController implements Initializable {
 	     fileChooser.getExtensionFilters().add(extensionFilter);
 	      File file = fileChooser.showOpenDialog(null);
 	      path = file.toURI().toString();
+	      if(isSongPlaying) {
+	    	  BK_mediaplayer.dispose();
+	    	  isSongPlaying = false;
+	      }
 	      String[] extention = path.toString().split("\\.");
 	      extension = extention[extention.length - 1]; 
 	      try{
@@ -86,6 +109,7 @@ public class mediaplayerfxmlController implements Initializable {
 	    	  mediaplayer.dispose();}
 	    	  isplaying = true;
 	    	  if(extension.equals("mp3")) {
+	    		  isSongPlaying = true;
 	    		  music_name.setText(file.getName());
 	    		  media = new Media(new File("src/assets/background.mp4").toURI().toString());
 		    	  BK_mediaplayer = new MediaPlayer(media);
@@ -137,6 +161,13 @@ public class mediaplayerfxmlController implements Initializable {
 	                    int sec = (int) total.toSeconds()%60;
 	                    String time = min + ":" + sec;
 	                    if(hr != 0) time = hr + ":" + time;
+	                    media_information.Get_Information(
+	                    		file.getName(),
+	                    		file.getPath(),
+	                    		time,
+	                    		extension,
+	                    		file.length()/1000000 + "." + (file.length()/1000 - (file.length()/1000000)*1000)
+	                    		);
 	                    Total_time.setText(time);
 	                }
 	            });
@@ -217,7 +248,7 @@ public class mediaplayerfxmlController implements Initializable {
 		
 	}
 	
-	@FXML public void properties() {
+	@FXML public void properties()  throws IOException{
 		
 		properties.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
@@ -243,7 +274,23 @@ public class mediaplayerfxmlController implements Initializable {
             		}
             		speed_visible = !speed_visible;
                 }else if(button==MouseButton.SECONDARY){
+                	FXMLLoader ldr = new FXMLLoader();
+                	ldr.setLocation(getClass().getResource("MediaInfo.fxml"));
+                	Parent Media_Info = null;
+					try {
+						Media_Info = ldr.load();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						System.out.println(e.toString());
+					}
                 	
+                	Scene Media_info = new Scene(Media_Info);
+                	MediaInfoController controller = ldr.getController();
+                	controller.initData(media_information);
+                	Stage win = new Stage();
+                	win.setTitle("Media Information");
+                	win.setScene(Media_info);
+                    win.show();
                 }
 			}});
 		
