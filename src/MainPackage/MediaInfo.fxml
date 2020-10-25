@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPackage.MediaInfoController">
    <center>
       <GridPane prefHeight="255.0" prefWidth="387.0" BorderPane.alignment="CENTER">
@@ -63,7 +62,7 @@
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Size:-" GridPane.rowIndex="4">
+            <Label text="Size(MB):-" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
