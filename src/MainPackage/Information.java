@@ -15,5 +15,15 @@ public class Information {
 		this.File_type_of_media = d;
 		this.Size_of_media = e;
 	}
+	
+        public String get_string_time(javafx.util.Duration total){
+		int hr = (int) total.toHours();
+        int min = (int) total.toMinutes()%(60*60);
+        int sec = (int) total.toSeconds()%60;
+        String time = min + ":" + sec;
+        if(hr != 0) time = hr + ":" + time;
+		return time;
+	}
+
 
 }
