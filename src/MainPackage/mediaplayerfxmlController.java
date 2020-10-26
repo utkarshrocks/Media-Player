@@ -159,13 +159,13 @@ public class mediaplayerfxmlController implements Initializable {
 		if (isPlay==true) {
 				if(extension.equals("mp3")) {BK_mediaplayer.pause();}
             	mediaplayer.pause();
-            	pppng.setImage(pauseI);
+            	pppng.setImage(playI);
             	isPlay=false;
         	}	 
 		else {
 				if(extension.equals("mp3")) {BK_mediaplayer.play();}
             	mediaplayer.play();
-            	pppng.setImage(playI);
+            	pppng.setImage(pauseI);
             	isPlay=true;
         	}
 	}
