@@ -56,7 +56,7 @@
                            <graphic>
                               <ImageView fx:id="pppng" fitHeight="11.0" fitWidth="16.0" onMouseClicked="#play_pause" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../assets/play.png" />
+                                    <Image url="@../assets/pause.png" />
                                  </image>
                               </ImageView>
                            </graphic>
