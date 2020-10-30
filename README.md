@@ -8,4 +8,4 @@
 
 # About Project:-
 This is a group assignment given to a group of four (All four contributors mentioned above)<br/>
-In This project we have to make a media player which can run media files with ease
+In This project we have to make a media player which can run media files with ease.
