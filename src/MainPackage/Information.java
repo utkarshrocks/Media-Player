@@ -16,7 +16,7 @@ public class Information {
 		this.Size_of_media = e;
 	}
 	
-        public String get_string_time(javafx.util.Duration total){
+	public String get_string_time(javafx.util.Duration total){
 		int hr = (int) total.toHours();
         int min = (int) total.toMinutes()%(60*60);
         int sec = (int) total.toSeconds()%60;
@@ -24,6 +24,5 @@ public class Information {
         if(hr != 0) time = hr + ":" + time;
 		return time;
 	}
-
 
 }
