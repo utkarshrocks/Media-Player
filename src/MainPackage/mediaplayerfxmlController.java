@@ -258,6 +258,8 @@ public class mediaplayerfxmlController implements Initializable {
 			public void handle(MouseEvent event) {
 				MouseButton button = event.getButton();
                 if(button==MouseButton.SECONDARY){
+                	FR_button.setVisibility(false,isPlayingMultipleMedia);
+            		speed_visible = false;
                 	if(slider_visible) {
             			volumeSlider.setVisible(false);
             			if(isPlayingMultipleMedia) {
@@ -272,8 +274,6 @@ public class mediaplayerfxmlController implements Initializable {
             			ChoiceHBOX.setVisible(false);
             		}
             		slider_visible = !slider_visible;
-            		FR_button.setVisibility(false,isPlayingMultipleMedia);
-            		speed_visible = false;
                 }
                 else{
                 	if(mediaplayer.isMute()) {
