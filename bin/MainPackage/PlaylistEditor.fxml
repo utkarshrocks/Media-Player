@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPackage.PlaylistEditorController">
+   <children>
+      <TableView fx:id="MediaTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="703.0">
+        <columns>
+          <TableColumn fx:id="Media" maxWidth="1.7976931348623157E308" prefWidth="1182.0" text="Media" />
+          <TableColumn fx:id="Action" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="97.0" text="Action" />
+        </columns>
+      </TableView>
+      <CheckBox fx:id="SelectAllMedia" layoutX="37.0" layoutY="743.0" mnemonicParsing="false" text="Select All">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </CheckBox>
+      <Button fx:id="Done" layoutX="249.0" layoutY="741.0" mnemonicParsing="false" onAction="#Done" text="Done Editing">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Label layoutX="862.0" layoutY="766.0" text="Click &quot;Done Editing&quot; then close the window to save changes" />
+   </children>
+</AnchorPane>
