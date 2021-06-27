@@ -257,7 +257,9 @@ public class mediaplayerfxmlController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				MouseButton button = event.getButton();
-                if(button==MouseButton.PRIMARY){
+                if(button==MouseButton.SECONDARY){
+                	FR_button.setVisibility(false,isPlayingMultipleMedia);
+            		speed_visible = false;
                 	if(slider_visible) {
             			volumeSlider.setVisible(false);
             			if(isPlayingMultipleMedia) {
@@ -284,8 +286,6 @@ public class mediaplayerfxmlController implements Initializable {
                 	}
                 }
 			}});
-		FR_button.setVisibility(false,isPlayingMultipleMedia);
-		speed_visible = false;
 	}
 	
 	@FXML private void properties()  throws IOException{
@@ -295,11 +295,13 @@ public class mediaplayerfxmlController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				MouseButton button = event.getButton();
-                if(button==MouseButton.PRIMARY){
+                if(button==MouseButton.SECONDARY){
                 	if(speed_visible) {FR_button.setVisibility(false,isPlayingMultipleMedia);}
             		else {FR_button.setVisibility(true,isPlayingMultipleMedia);}
+            		volumeSlider.setVisible(false);
+            		slider_visible = false;
                 	speed_visible = !speed_visible;
-                }else if(button==MouseButton.SECONDARY){
+                }else if(button==MouseButton.PRIMARY){
                 	FXMLLoader ldr = new FXMLLoader();
                 	ldr.setLocation(getClass().getResource("MediaInfo.fxml"));
                 	Parent Media_Info = null;
@@ -318,9 +320,6 @@ public class mediaplayerfxmlController implements Initializable {
                     win.show();
                 }
 			}});
-		
-		volumeSlider.setVisible(false);
-		slider_visible = false;
 	}
 	
 	@FXML private void PlaylistEdit() throws IOException {

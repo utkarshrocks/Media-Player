@@ -7,11 +7,11 @@
 4) https://github.com/utkarshgarg123
 
 # Target Features:-
-1) Play/Pause the Media
-2) Change frame Rate
-3) Show Properties of Media
-4) Change the Volume
-5) Mute the Mediaplayer in one click
+1) Play/Pause the Media.
+2) Change frame Rate.
+3) Show Properties of Media.
+4) Change the Volume.
+5) Mute the Mediaplayer in one click.
 
 # Additional Features:-
 1) Double tap to enter and exit FullScreen mode

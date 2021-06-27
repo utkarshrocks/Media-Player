@@ -2,50 +2,133 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPackage.mediaplayerfxmlController">
+<BorderPane fx:id="borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPackage.mediaplayerfxmlController">
    <center>
       <StackPane fx:id="pane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <MediaView fx:id="mediaview" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#play_pause" StackPane.alignment="TOP_CENTER" />
-            <VBox alignment="BOTTOM_CENTER" maxHeight="40.0" prefHeight="50.0" StackPane.alignment="BOTTOM_CENTER">
+            <MediaView fx:id="background" fitHeight="200.0" fitWidth="200.0" StackPane.alignment="CENTER" />
+            <MediaView fx:id="mediaview" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#play_pause" StackPane.alignment="CENTER" />
+            <VBox alignment="BOTTOM_CENTER" maxHeight="40.0" maxWidth="1.7976931348623157E308" prefHeight="50.0" StackPane.alignment="BOTTOM_CENTER">
                <children>
-                  <Slider fx:id="progressBar" />
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <Text fx:id="Elapse_time" fill="#e8e3e3" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00">
+                           <HBox.margin>
+                              <Insets left="2.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Slider fx:id="progressBar" prefHeight="16.0" prefWidth="2000.0" />
+                        <Text fx:id="Total_time" fill="#eee8e8" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" />
+                     </children>
+                  </HBox>
                   <HBox alignment="BOTTOM_CENTER" maxHeight="40.0" prefHeight="30.0">
                      <children>
-                        <Button fx:id="openFile" mnemonicParsing="false" onAction="#openmedia" text="File">
+                        <Button fx:id="openFile" mnemonicParsing="false" onAction="#openmedia" onMouseClicked="#openmedia">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="35.0" top="10.0" />
                            </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/file.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
-                        <Button fx:id="PlayPause" mnemonicParsing="false" onAction="#play_pause" text="Play">
+                        <Button fx:id="PlayPause" mnemonicParsing="false" onAction="#play_pause" prefHeight="28.0" prefWidth="49.0">
+                           <HBox.margin>
+                              <Insets bottom="10.0" right="35.0" top="10.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <ImageView fx:id="pppng" fitHeight="11.0" fitWidth="16.0" onMouseClicked="#play_pause" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/pause.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="properties" mnemonicParsing="false" onAction="#properties" onMouseClicked="#properties" text="Properties">
                            <HBox.margin>
                               <Insets bottom="10.0" right="35.0" top="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="properties" mnemonicParsing="false" onAction="#properties" text="Properties">
+                        <Button fx:id="Volume" mnemonicParsing="false" onAction="#visibleslider" onMouseClicked="#visibleslider">
                            <HBox.margin>
-                              <Insets bottom="10.0" right="35.0" top="10.0" />
+                              <Insets bottom="10.0" right="20.0" top="10.0" />
                            </HBox.margin>
+                           <graphic>
+                              <ImageView fx:id="VImg" fitHeight="16.0" fitWidth="22.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../assets/volume.png" />
+                                 </image>
+                                 <effect>
+                                    <Lighting>
+                                       <bumpInput>
+                                          <Shadow />
+                                       </bumpInput>
+                                       <light>
+                                          <Light.Distant />
+                                       </light>
+                                    </Lighting>
+                                 </effect>
+                              </ImageView>
+                           </graphic>
                         </Button>
-                        <Button fx:id="Volume" mnemonicParsing="false" onAction="#visibleslider" text="Volume">
-                           <HBox.margin>
-                              <Insets bottom="10.0" right="35.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <StackPane>
+                        <StackPane alignment="BOTTOM_RIGHT">
                            <HBox.margin>
                               <Insets bottom="10.0" />
                            </HBox.margin>
                            <children>
-                              <Slider fx:id="volumeSlider" visible="false" />
-                              <HBox fx:id="HBOX" alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" visible="false">
+                              <Slider fx:id="volumeSlider" visible="false" StackPane.alignment="BOTTOM_CENTER" />
+                              <HBox fx:id="ChoiceHBOX" alignment="BOTTOM_LEFT" visible="false">
+                                 <children>
+                                    <ChoiceBox fx:id="ChoiceBox" prefHeight="26.0" prefWidth="124.0">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </ChoiceBox>
+                                    <Button fx:id="editPlaylist" mnemonicParsing="false" onAction="#PlaylistEdit">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="16.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/edit.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="ChoiceButton" mnemonicParsing="false" onAction="#getItem" onMouseClicked="#getItem">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <ImageView fx:id="Shuffle" fitHeight="10.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/play.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="HBOX" alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" visible="false">
                                  <children>
                                     <Button fx:id="slowmo" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#slowAction" text="&lt;&lt;" visible="false">
                                        <HBox.margin>
@@ -64,6 +147,31 @@
                   <Insets />
                </StackPane.margin>
             </VBox>
+            <Text fx:id="music_name" fill="#f5f3f3" strokeType="OUTSIDE" strokeWidth="0.0" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="10.0" top="5.0" />
+               </StackPane.margin>
+            </Text>
+            <StackPane fx:id="speed_stack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="49.0" visible="false" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="10.0" top="40.0" />
+               </StackPane.margin>
+               <children>
+                  <Text fx:id="show_speed" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" StackPane.alignment="TOP_LEFT">
+                     <StackPane.margin>
+                        <Insets left="10.0" top="8.0" />
+                     </StackPane.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="speed_img" fitHeight="36.0" fitWidth="59.0" opacity="0.55" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="TOP_LEFT">
+                     <image>
+                        <Image url="@../assets/black.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
          </children>
       </StackPane>
    </center>
